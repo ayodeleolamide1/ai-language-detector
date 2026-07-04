@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Labi Ayodele — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy: #050B18;
+  --navy2: #0A1628;
+  --navy3: #0F1F3D;
+  --cobalt: #0066FF;
+  --cobalt-light: #3385FF;
+  --cobalt-glow: rgba(0,102,255,0.15);
+  --amber: #FF9500;
+  --amber-glow: rgba(255,149,0,0.15);
+  --emerald: #00C896;
+  --white: #F0F4FF;
+  --slate: #8892A4;
+  --slate2: #4A5568;
+  --card: rgba(255,255,255,0.04);
+  --card-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(0,102,255,0.4);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── SCROLL PROGRESS ── */
+#scroll-bar {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 999;
+  background: linear-gradient(90deg, var(--cobalt), var(--amber));
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(5,11,24,0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+  color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cobalt); animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--slate); font-size: 0.85rem; font-weight: 500;
+  text-decoration: none; letter-spacing: 0.03em;
+  transition: color 0.2s; position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: var(--cobalt); transform: scaleX(0); transition: transform 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--cobalt); color: #fff !important; padding: 0.4rem 1rem;
+  border-radius: 6px; font-weight: 600 !important;
+}
+.nav-cta:hover { background: var(--cobalt-light); }
+.nav-cta::after { display: none !important; }
+.nav-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.4rem; cursor: pointer; }
+.mobile-menu {
+  display: none; position: fixed; top: 64px; left: 0; right: 0;
+  background: var(--navy2); border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; z-index: 99;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: var(--white); text-decoration: none; font-size: 1rem; font-weight: 500; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 8rem 3rem 4rem;
+}
+#hero-canvas {
+  position: absolute; inset: 0; z-index: 0;
+  opacity: 0.5;
+}
+.hero-content { position: relative; z-index: 2; max-width: 760px; text-align: center; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--cobalt-glow); border: 1px solid rgba(0,102,255,0.3);
+  color: var(--cobalt-light); padding: 0.35rem 1rem;
+  border-radius: 99px; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease both;
+}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); animation: pulse-dot 1.5s infinite; }
+.hero h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.1; margin-bottom: 0.6rem;
+  animation: fadeInUp 0.6s 0.1s ease both;
+}
+.hero h1 .name { color: var(--white); }
+.hero h1 .accent { color: var(--cobalt); }
+/* Language ticker — the signature element */
+.lang-ticker {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--amber);
+  height: 1.2em; overflow: hidden; display: inline-block;
+  vertical-align: middle;
+  animation: fadeInUp 0.6s 0.15s ease both;
+}
+.lang-ticker-inner { display: flex; flex-direction: column; transition: transform 0.5s cubic-bezier(.77,0,.18,1); }
+.lang-ticker-inner span { height: 1.2em; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+.hero-sub {
+  font-size: 1.05rem; color: var(--slate); max-width: 540px; margin: 1.2rem auto 2rem;
+  animation: fadeInUp 0.6s 0.2s ease both;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 0.6s 0.3s ease both;
+}
+.pill {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--slate); padding: 0.3rem 0.85rem;
+  border-radius: 99px; font-size: 0.8rem; font-weight: 500;
+  transition: border-color 0.2s, color 0.2s;
+}
+.pill:hover { border-color: var(--cobalt); color: var(--white); }
+.hero-actions {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeInUp 0.6s 0.4s ease both;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.75rem; border-radius: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: var(--cobalt); color: #fff;
+  box-shadow: 0 0 0 0 var(--cobalt-glow);
+}
+.btn-primary:hover { background: var(--cobalt-light); box-shadow: 0 8px 30px rgba(0,102,255,0.35); }
+.btn-ghost {
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: var(--card-hover); }
+.btn-amber { background: var(--amber); color: var(--navy); }
+.btn-amber:hover { box-shadow: 0 8px 30px rgba(255,149,0,0.3); }
+.scroll-hint {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  color: var(--slate); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+.scroll-hint svg { width: 16px; height: 16px; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ── SECTIONS ── */
+.section { padding: 6rem 3rem; max-width: 1060px; margin: 0 auto; }
+.section-header { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  color: var(--cobalt-light); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.eyebrow::before { content: '//'; color: var(--amber); }
+.section-header h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.section-header p { color: var(--slate); font-size: 1rem; max-width: 560px; }
+
+/* reveal animation */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── STATS BAND ── */
+.stats-band {
+  background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 3rem;
+}
+.stats-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; max-width: 900px; margin: 0 auto; }
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 3rem; line-height: 1;
+  background: linear-gradient(135deg, var(--cobalt-light), var(--amber));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label { font-size: 0.8rem; color: var(--slate); margin-top: 0.4rem; letter-spacing: 0.04em; }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+.about-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+  position: relative; overflow: hidden;
+}
+.about-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--cobalt), var(--emerald));
+}
+.avatar-ring {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px solid var(--cobalt); padding: 3px;
+  margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--cobalt-glow), var(--navy3));
+  font-size: 2rem;
+}
+.about-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.25rem; }
+.about-card .role { color: var(--cobalt-light); font-size: 0.83rem; font-family: var(--font-mono); margin-bottom: 1rem; }
+.about-card p { color: var(--slate); font-size: 0.9rem; line-height: 1.7; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.about-tag {
+  background: var(--cobalt-glow); border: 1px solid rgba(0,102,255,0.2);
+  color: var(--cobalt-light); padding: 0.2rem 0.65rem;
+  border-radius: 4px; font-size: 0.72rem; font-family: var(--font-mono);
+}
+.about-text { color: rgba(240,244,255,0.85); line-height: 1.8; font-size: 0.97rem; }
+.about-text p + p { margin-top: 1rem; }
+.about-text strong { color: var(--white); }
+.highlight-bar {
+  display: inline-block; background: var(--amber-glow);
+  border-left: 2px solid var(--amber); padding: 0.6rem 1rem;
+  border-radius: 0 6px 6px 0; margin: 1rem 0; font-size: 0.88rem; color: rgba(240,244,255,0.9);
+}
+
+/* ── SKILLS ── */
+.skills-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.stab {
+  padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.83rem; font-weight: 600;
+  background: var(--card); border: 1px solid var(--border); color: var(--slate);
+  cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+}
+.stab.active { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.stab:hover:not(.active) { border-color: var(--cobalt); color: var(--white); }
+.skills-panel { display: none; }
+.skills-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.skill-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.3rem;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  cursor: default;
+}
+.skill-card:hover {
+  border-color: var(--border-hover); background: var(--card-hover);
+  transform: translateY(-2px);
+}
+.skill-icon { font-size: 1.5rem; margin-bottom: 0.7rem; }
+.skill-card h4 { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem; }
+.skill-card .level { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); margin-bottom: 0.7rem; }
+.skill-bar-track {
+  height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin-bottom: 0.9rem;
+}
+.skill-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--cobalt), var(--emerald));
+  width: 0%; transition: width 1.2s cubic-bezier(.77,0,.18,1) 0.2s;
+}
+.skill-tags-sm { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.stag {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+  color: var(--slate); padding: 0.15rem 0.5rem;
+  border-radius: 3px; font-size: 0.7rem; font-family: var(--font-mono);
+}
+
+/* ── PROJECTS ── */
+.filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.filt {
+  padding: 0.4rem 1rem; border-radius: 99px; font-size: 0.78rem; font-weight: 600;
+  background: var(--card); border: 1px solid var(--border); color: var(--slate);
+  cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+}
+.filt.active { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+.filt:hover:not(.active) { border-color: var(--amber); color: var(--white); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+.project-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  transition: border-color 0.2s, transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+}
+.project-card.hidden { display: none; }
+.project-card:hover {
+  border-color: var(--border-hover); transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,102,255,0.1);
+}
+.project-stripe { height: 4px; }
+.project-stripe.blue { background: linear-gradient(90deg, var(--cobalt), #00C8FF); }
+.project-stripe.green { background: linear-gradient(90deg, #00C896, #00B4D8); }
+.project-stripe.amber { background: linear-gradient(90deg, var(--amber), #FF6B35); }
+.project-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.project-type {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--slate);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+}
+.project-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+.project-body p { color: var(--slate); font-size: 0.85rem; line-height: 1.65; flex: 1; margin-bottom: 1rem; }
+.project-tech { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1rem; }
+.tech-tag {
+  background: rgba(0,102,255,0.1); border: 1px solid rgba(0,102,255,0.2);
+  color: var(--cobalt-light); padding: 0.15rem 0.5rem;
+  border-radius: 3px; font-size: 0.68rem; font-family: var(--font-mono);
+}
+.project-footer { display: flex; gap: 0.6rem; padding: 0 1.4rem 1.4rem; }
+.plink {
+  font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.9rem;
+  border-radius: 6px; text-decoration: none; transition: all 0.2s;
+}
+.plink-main { background: var(--cobalt); color: #fff; }
+.plink-main:hover { background: var(--cobalt-light); }
+.plink-sec { background: transparent; border: 1px solid var(--border); color: var(--slate); }
+.plink-sec:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
+.badge-live {
+  margin-left: auto; align-self: flex-end; margin-bottom: 0.1rem;
+  background: rgba(0,200,150,0.15); border: 1px solid rgba(0,200,150,0.3);
+  color: var(--emerald); padding: 0.15rem 0.55rem;
+  border-radius: 99px; font-size: 0.65rem; font-family: var(--font-mono); font-weight: 600;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.badge-live::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--emerald); animation:pulse-dot 1.5s infinite; }
+
+/* ── GITHUB ── */
+.github-panel {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+}
+.github-top {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 2rem; padding: 2.5rem 2.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.github-top h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; margin-bottom: 0.4rem; }
+.github-url {
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--cobalt-light);
+  background: var(--cobalt-glow); border: 1px solid rgba(0,102,255,0.2);
+  padding: 0.3rem 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 0.8rem;
+}
+.github-top p { color: var(--slate); font-size: 0.88rem; max-width: 420px; }
+.github-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+.gstat .n {
+  font-family: var(--font-display); font-weight: 800; font-size: 2rem;
+  color: var(--amber); display: block;
+}
+.gstat .l { font-size: 0.72rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.08em; }
+.github-checklist { padding: 1.8rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.gcheck { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.85rem; color: var(--slate); }
+.gcheck.done { color: rgba(240,244,255,0.8); }
+.gcheck-icon { flex-shrink: 0; margin-top: 1px; font-size: 0.9rem; }
+
+/* ── ROADMAP ── */
+.roadmap-track { position: relative; padding-left: 2.5rem; }
+.roadmap-track::before {
+  content: ''; position: absolute; left: 10px; top: 14px; bottom: 14px;
+  width: 1px; background: linear-gradient(180deg, var(--cobalt) 0%, var(--amber) 60%, rgba(255,255,255,0.08) 100%);
+}
+.ritem { position: relative; margin-bottom: 2rem; }
+.rdot-wrap {
+  position: absolute; left: -2.5rem; top: 3px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 800; z-index: 1;
+}
+.rdot-wrap.done { background: var(--emerald); color: var(--navy); }
+.rdot-wrap.now { background: var(--cobalt); color: #fff; box-shadow: 0 0 0 4px var(--cobalt-glow); }
+.rdot-wrap.soon { background: var(--navy3); border: 1px solid var(--border); color: var(--slate); }
+.ritem h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.97rem; margin-bottom: 0.2rem; }
+.ritem p { font-size: 0.83rem; color: var(--slate); }
+.rphase {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--cobalt-light);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+}
+
+/* ── VISA ── */
+.visa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+.visa-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.4rem 1.2rem;
+  text-align: center; transition: border-color 0.2s, transform 0.2s;
+  cursor: default;
+}
+.visa-card:hover { border-color: rgba(0,102,255,0.35); transform: translateY(-3px); }
+.visa-flag { font-size: 2.2rem; margin-bottom: 0.6rem; display: block; }
+.visa-card h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.visa-type { font-family: var(--font-mono); font-size: 0.68rem; color: var(--cobalt-light); margin-bottom: 0.4rem; }
+.visa-card p { font-size: 0.75rem; color: var(--slate); }
+.visa-tip {
+  margin-top: 1.4rem; padding: 1.2rem 1.4rem;
+  background: var(--cobalt-glow); border: 1px solid rgba(0,102,255,0.25);
+  border-radius: 10px; font-size: 0.85rem; color: rgba(240,244,255,0.85); line-height: 1.65;
+}
+.visa-tip strong { color: var(--cobalt-light); }
+
+/* ── CONTACT ── */
+.contact-panel {
+  background: linear-gradient(135deg, var(--navy3) 0%, var(--navy2) 100%);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 3rem; text-align: center; position: relative; overflow: hidden;
+}
+.contact-panel::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--cobalt-glow) 0%, transparent 60%);
+  pointer-events: none;
+}
+.contact-panel h2 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; margin-bottom: 0.5rem; }
+.contact-panel p { color: var(--slate); font-size: 0.97rem; max-width: 440px; margin: 0 auto 2rem; }
+.contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.clink {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--white); padding: 0.65rem 1.3rem;
+  border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600;
+  transition: border-color 0.2s, background 0.2s;
+}
+.clink:hover { border-color: var(--cobalt); background: var(--cobalt-glow); }
+.profile-url-box {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--navy); border: 1px solid var(--cobalt);
+  border-radius: 8px; padding: 0.6rem 1.2rem;
+  font-family: var(--font-mono); font-size: 0.88rem; color: var(--cobalt-light);
+  cursor: pointer; transition: background 0.2s;
+  position: relative;
+}
+.profile-url-box:hover { background: var(--cobalt-glow); }
+.copy-tooltip {
+  position: absolute; top: -2rem; left: 50%; transform: translateX(-50%);
+  background: var(--emerald); color: var(--navy); padding: 0.2rem 0.6rem;
+  border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+  opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap;
+}
+.copy-tooltip.show { opacity: 1; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  color: var(--slate); font-size: 0.8rem;
+}
+footer a { color: var(--cobalt-light); text-decoration: none; }
+footer a:hover { color: var(--white); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .section { padding: 4rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .github-checklist { grid-template-columns: 1fr; }
+  .github-top { flex-direction: column; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-bar"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="https://labi.dev">
+    <span class="dot"></span>labi.dev
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#github">GitHub</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#visa">Europe Plan</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#skills" class="mob-link">Skills</a>
+  <a href="#projects" class="mob-link">Projects</a>
+  <a href="#github" class="mob-link">GitHub</a>
+  <a href="#roadmap" class="mob-link">Roadmap</a>
+  <a href="#visa" class="mob-link">Europe Plan</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>Open to European Relocation
+    </div>
+    <h1>
+      <span class="name">I build tech that speaks</span><br/>
+      <div class="lang-ticker" id="lang-ticker">
+        <div class="lang-ticker-inner" id="lang-inner">
+          <span>10 Languages</span>
+          <span>Hello</span>
+          <span>Bonjour</span>
+          <span>Hallo</span>
+          <span>Hola</span>
+          <span>Yorùbá</span>
+          <span>Igbo</span>
+          <span>Hausa</span>
+          <span>Twi</span>
+          <span>isiXhosa</span>
+          <span>Italiano</span>
+          <span>10 Languages</span>
+        </div>
+      </div>
+    </h1>
+    <p class="hero-sub">
+      Full-Stack Developer · Data Analyst · Digital Marketer<br/>
+      Founder, <strong>Freedom Global Media</strong> — Lagos, Nigeria
+    </p>
+    <div class="hero-pills">
+      <span class="pill">⚡ Self-taught Developer</span>
+      <span class="pill">🤖 AI Platform Builder</span>
+      <span class="pill">📊 Data Analytics</span>
+      <span class="pill">📣 Digital Marketing</span>
+      <span class="pill">🌍 labi.dev</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="Labi_Ayodele_International_CV.docx" download>⬇ Download CV</a>
+      <a class="btn btn-ghost" href="https://github.com/ayodeleolamide1" target="_blank" rel="noopener">GitHub Profile →</a>
+      <a class="btn btn-amber" href="#projects">View Projects</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 3v10M4 9l4 4 4-4"/>
+    </svg>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band reveal">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number" data-count="10">0</div>
+      <div class="stat-label">Languages Supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="5">0</div>
+      <div class="stat-label">African Languages</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="3">0</div>
+      <div class="stat-label">Full-stack Tiers Built</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="0">0</div>
+      <div class="stat-label">Coding Experience Before Starting</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="6">0</div>
+      <div class="stat-label">EU Target Countries</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section reveal" id="about">
+  <div class="section-header">
+    <div class="eyebrow">About Me</div>
+    <h2>From Zero Code to Full-Stack AI</h2>
+    <p>A story of self-directed learning, entrepreneurial drive, and building real technology for underserved languages.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="avatar-ring">👨🏾‍💻</div>
+      <h3>Olamide Tosin Ayodele</h3>
+      <div class="role">// Founder @ Freedom Global Media</div>
+      <p>AI and social media enthusiast with a problem-solving orientation. Self-taught full-stack developer, data analytics learner, and digital marketing strategist. Based in Lagos, Nigeria — targeting Europe in 2025.</p>
+      <div class="about-tags">
+        <span class="about-tag">full-stack</span>
+        <span class="about-tag">data-analytics</span>
+        <span class="about-tag">digital-marketing</span>
+        <span class="about-tag">NLP/AI</span>
+        <span class="about-tag">Lagos → Europe</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>I'm the founder of <strong>Freedom Global Media</strong>, a registered technology and media company in Nigeria. In 2024, I set myself an impossible challenge: build a production-grade, AI-powered multilingual translation and transcription platform from absolute zero — no prior coding experience, no team, just curiosity and determination.</p>
+      <div class="highlight-bar">
+        The result: a live, three-tier full-stack application serving 10 languages — including five African languages typically ignored by mainstream AI tools.
+      </div>
+      <p>My frontend is deployed on Netlify. The backend (Node.js/Express) and AI engine (Python Flask + Azure Translator) are deploying to Railway. The platform includes real-time live call translation via WebSockets, voice I/O, and a custom phrase dictionary for Yoruba, Igbo, Hausa, Twi, and Xhosa.</p>
+      <p>I'm now building a matching data analytics and digital marketing portfolio to pursue a multi-track tech career across Europe — where my energy, self-directed learning, and cross-cultural perspective can make a real impact.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section reveal" id="skills">
+  <div class="section-header">
+    <div class="eyebrow">Skills</div>
+    <h2>Technical & Marketing Toolkit</h2>
+    <p>All skills demonstrated by shipped deliverables — not just listed.</p>
+  </div>
+  <div class="skills-tabs">
+    <button class="stab active" data-panel="dev">💻 Development</button>
+    <button class="stab" data-panel="data">📊 Data Analytics</button>
+    <button class="stab" data-panel="marketing">📣 Digital Marketing</button>
+    <button class="stab" data-panel="tools">🛠 Tools & DevOps</button>
+  </div>
+
+  <div class="skills-panel active" id="panel-dev">
+    <div class="skill-card">
+      <div class="skill-icon">⚛️</div>
+      <h4>Frontend</h4>
+      <div class="level">// Beginner → Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+      <div class="skill-tags-sm">
+        <span class="stag">Next.js</span><span class="stag">React</span><span class="stag">JavaScript</span>
+        <span class="stag">HTML5</span><span class="stag">CSS3</span><span class="stag">Tailwind</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h4>Backend</h4>
+      <div class="level">// Beginner → Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="50"></div></div>
+      <div class="skill-tags-sm">
+        <span class="stag">Node.js</span><span class="stag">Express.js</span><span class="stag">REST APIs</span>
+        <span class="stag">Socket.IO</span><span class="stag">JWT Auth</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <h4>AI & Integrations</h4>
+      <div class="level">// Applied / Production</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+      <div class="skill-tags-sm">
+        <span class="stag">Python</span><span class="stag">Flask</span><span class="stag">Azure Translator</span>
+        <span class="stag">Web Speech API</span><span class="stag">WebSockets</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-panel" id="panel-data">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <h4>Python for Data</h4>
+      <div class="level">// Beginner</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="35"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Pandas</span><span class="stag">NumPy</span><span class="stag">Matplotlib</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <h4>SQL</h4>
+      <div class="level">// Beginner</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="30"></div></div>
+      <div class="skill-tags-sm"><span class="stag">SELECT / JOIN</span><span class="stag">Aggregations</span><span class="stag">Filtering</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h4>Power BI</h4>
+      <div class="level">// Beginner</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="25"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Dashboards</span><span class="stag">DAX</span><span class="stag">Excel</span></div>
+    </div>
+  </div>
+
+  <div class="skills-panel" id="panel-marketing">
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <h4>SEO & Content</h4>
+      <div class="level">// Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Keyword Research</span><span class="stag">On-page SEO</span><span class="stag">Blog Strategy</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💼</div>
+      <h4>LinkedIn Growth</h4>
+      <div class="level">// Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Personal Branding</span><span class="stag">Content Calendar</span><span class="stag">Analytics</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📣</div>
+      <h4>Social Media Strategy</h4>
+      <div class="level">// Beginner → Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="50"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Content Strategy</span><span class="stag">Engagement</span><span class="stag">Analytics</span></div>
+    </div>
+  </div>
+
+  <div class="skills-panel" id="panel-tools">
+    <div class="skill-card">
+      <div class="skill-icon">🐙</div>
+      <h4>Git & GitHub</h4>
+      <div class="level">// Intermediate</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Git</span><span class="stag">GitHub</span><span class="stag">Branches</span><span class="stag">PRs</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <h4>Cloud Deployment</h4>
+      <div class="level">// Applied / Production</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="50"></div></div>
+      <div class="skill-tags-sm"><span class="stag">Netlify</span><span class="stag">Railway</span><span class="stag">Azure</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <h4>Dev Tools</h4>
+      <div class="level">// Daily use</div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+      <div class="skill-tags-sm"><span class="stag">VS Code</span><span class="stag">Postman</span><span class="stag">DevTools</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section reveal" id="projects">
+  <div class="section-header">
+    <div class="eyebrow">Projects</div>
+    <h2>Portfolio Work</h2>
+    <p>Real deliverables across all three tracks — all with source code or case studies.</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filt active" data-filter="all">All</button>
+    <button class="filt" data-filter="fullstack">Full-Stack</button>
+    <button class="filt" data-filter="data">Data Analytics</button>
+    <button class="filt" data-filter="marketing">Digital Marketing</button>
+  </div>
+  <div class="projects-grid" id="projects-grid">
+
+    <div class="project-card" data-cat="fullstack">
+      <div class="project-stripe blue"></div>
+      <div class="project-body">
+        <div class="project-type">// Full-Stack · AI · NLP</div>
+        <h3>Freedom Translate — AI Multilingual Platform</h3>
+        <p>Production web platform for text translation, document upload, and real-time live call translation across 10 languages — including 5 African languages. Built from zero coding experience to deployed product.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Next.js</span><span class="tech-tag">Node.js</span><span class="tech-tag">Python Flask</span>
+          <span class="tech-tag">Azure Translator</span><span class="tech-tag">Socket.IO</span><span class="tech-tag">Netlify</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-main" href="https://github.com/freedomglobalmedia/freedom-global-media" target="_blank" rel="noopener">GitHub</a>
+        <a class="plink plink-sec" href="https://freedom-global-media.netlify.app" target="_blank" rel="noopener">Live Demo ↗</a>
+        <span class="badge-live">Live</span>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="fullstack">
+      <div class="project-stripe blue"></div>
+      <div class="project-body">
+        <div class="project-type">// Backend · API Design</div>
+        <h3>Multilingual REST API</h3>
+        <p>Standalone Node.js/Express REST API powering the translation platform. Includes endpoints for translation, transcription, user authentication (JWT), and WebSocket room management for live calls.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Node.js</span><span class="tech-tag">Express</span><span class="tech-tag">JWT</span>
+          <span class="tech-tag">REST API</span><span class="tech-tag">Railway</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-main" href="https://github.com/freedomglobalmedia/freedom-global-media" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="data">
+      <div class="project-stripe green"></div>
+      <div class="project-body">
+        <div class="project-type">// Data Analytics · Python · SQL</div>
+        <h3>WAEC Student Performance Analytics</h3>
+        <p>Analysed a large simulated West African examination dataset. Performed grade distribution analysis, subject-level trend visualisation, and summary reporting using Python — mimicking a real educational analyst workflow.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span><span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span>
+          <span class="tech-tag">SQL</span><span class="tech-tag">Excel</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-main" href="https://github.com/ayodeleolamide1" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="data">
+      <div class="project-stripe green"></div>
+      <div class="project-body">
+        <div class="project-type">// Data Analytics · Power BI</div>
+        <h3>Freedom Global Media KPI Dashboard</h3>
+        <p>Power BI dashboard tracking Freedom Global Media platform KPIs — translation volume by language, user growth, and engagement trends. Demonstrates applied business intelligence and DAX skills.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Power BI</span><span class="tech-tag">DAX</span>
+          <span class="tech-tag">SQL</span><span class="tech-tag">Excel</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-sec" href="#">In Progress</a>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="marketing">
+      <div class="project-stripe amber"></div>
+      <div class="project-body">
+        <div class="project-type">// Digital Marketing · LinkedIn</div>
+        <h3>LinkedIn Personal Branding Case Study</h3>
+        <p>Documented a 6-month personal branding strategy covering audience analysis, content calendar design, SEO-aligned posting rhythm, and measured engagement growth. Shows end-to-end digital marketing execution.</p>
+        <div class="project-tech">
+          <span class="tech-tag">LinkedIn</span><span class="tech-tag">SEO</span>
+          <span class="tech-tag">Content Strategy</span><span class="tech-tag">Analytics</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-main" href="https://linkedin.com/in/labi-ayodele" target="_blank" rel="noopener">View Profile</a>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="marketing">
+      <div class="project-stripe amber"></div>
+      <div class="project-body">
+        <div class="project-type">// Content · Research · Analysis</div>
+        <h3>African Language AI Research Blog</h3>
+        <p>Research articles on AI tools for African languages — covering competitor landscape (Lelapa AI, Intron, Abena AI, Khaya AI), market gaps, and technology access across the continent.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Research</span><span class="tech-tag">Content Writing</span>
+          <span class="tech-tag">Market Analysis</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <a class="plink plink-sec" href="#">Coming Soon</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GITHUB -->
+<div class="section reveal" id="github">
+  <div class="section-header">
+    <div class="eyebrow">GitHub</div>
+    <h2>Code Presence</h2>
+    <p>Building a strong GitHub profile to demonstrate real skills to European employers and immigration officers.</p>
+  </div>
+  <div class="github-panel">
+    <div class="github-top">
+      <div>
+        <h3>My GitHub Profile</h3>
+        <div class="github-url">github.com/ayodeleolamide1</div>
+        <p>Repositories showcase the Freedom Global Media platform, data analytics scripts, and API projects. Actively documenting and expanding for employer review.</p>
+        <a class="btn btn-primary" style="margin-top:1.2rem;" href="https://github.com/ayodeleolamide1" target="_blank" rel="noopener">Visit GitHub →</a>
+      </div>
+      <div class="github-stats">
+        <div class="gstat"><span class="n">3+</span><span class="l">Repos</span></div>
+        <div class="gstat"><span class="n">10</span><span class="l">Languages</span></div>
+        <div class="gstat"><span class="n">3</span><span class="l">Stack Tiers</span></div>
+        <div class="gstat"><span class="n">∞</span><span class="l">Commits Ahead</span></div>
+      </div>
+    </div>
+    <div class="github-checklist">
+      <div class="gcheck done"><span class="gcheck-icon">✅</span> Pin Freedom Translate as top repo with full README</div>
+      <div class="gcheck done"><span class="gcheck-icon">✅</span> Add architecture diagram to project docs</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Create data-analytics-projects repo (WAEC + Power BI)</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Add digital-marketing-portfolio repo (case study PDF)</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Write a compelling GitHub profile README</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Aim for daily green squares — consistency signals to EU employers</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Open-source contribution to an NLP / African languages project</div>
+      <div class="gcheck"><span class="gcheck-icon">🔲</span> Tag repos with correct topics (nlp, africa, translation, react)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="section reveal" id="roadmap">
+  <div class="section-header">
+    <div class="eyebrow">Roadmap</div>
+    <h2>Journey to Europe</h2>
+    <p>A phased plan combining portfolio building, certifications, visa prep, and job applications.</p>
+  </div>
+  <div class="roadmap-track">
+    <div class="ritem">
+      <div class="rdot-wrap done">✓</div>
+      <div class="rphase">Phase 1 — Complete</div>
+      <h4>Build the Product</h4>
+      <p>Full-stack AI translation platform built. Frontend live on Netlify. GitHub repository active. Business registered.</p>
+    </div>
+    <div class="ritem">
+      <div class="rdot-wrap now">▶</div>
+      <div class="rphase">Phase 2 — Now</div>
+      <h4>Deploy & Polish</h4>
+      <p>Deploy backend + AI engine to Railway. Finalise portfolio site (labi.dev) and CV. Polish GitHub docs and README.</p>
+    </div>
+    <div class="ritem">
+      <div class="rdot-wrap soon">3</div>
+      <div class="rphase">Phase 3 — Q3 2025</div>
+      <h4>Data Analytics Portfolio</h4>
+      <p>Complete SQL, Power BI, and Python projects. Publish on GitHub. Pursue Google Data Analytics Certificate.</p>
+    </div>
+    <div class="ritem">
+      <div class="rdot-wrap soon">4</div>
+      <div class="rphase">Phase 4 — Q3 2025</div>
+      <h4>Digital Marketing Portfolio</h4>
+      <p>Publish LinkedIn branding case study. Build second client case study. Pursue Google Digital Marketing Certificate.</p>
+    </div>
+    <div class="ritem">
+      <div class="rdot-wrap soon">5</div>
+      <div class="rphase">Phase 5 — Q4 2025</div>
+      <h4>Grant & Funding Application</h4>
+      <p>Submit Freedom Global Media applications using prepared documentation and 15-month roadmap materials.</p>
+    </div>
+    <div class="ritem">
+      <div class="rdot-wrap soon">6</div>
+      <div class="rphase">Phase 6 — Q1 2026</div>
+      <h4>European Job Applications</h4>
+      <p>Apply to tech companies across Germany, Netherlands, Ireland, Portugal, Sweden using this CV and labi.dev portfolio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- VISA -->
+<div class="section reveal" id="visa">
+  <div class="section-header">
+    <div class="eyebrow">Europe Plan</div>
+    <h2>Relocation Strategy</h2>
+    <p>Budget: ₦7M. Prioritised by tech demand, visa accessibility for Nigerian applicants, and cost of living.</p>
+  </div>
+  <div class="visa-grid">
+    <div class="visa-card">
+      <span class="visa-flag">🇩🇪</span>
+      <h4>Germany</h4>
+      <div class="visa-type">Job Seeker Visa</div>
+      <p>6 months in-country job search. No offer needed upfront. Strongest tech market in EU.</p>
+    </div>
+    <div class="visa-card">
+      <span class="visa-flag">🇳🇱</span>
+      <h4>Netherlands</h4>
+      <div class="visa-type">Highly Skilled Migrant</div>
+      <p>Fast-track for tech professionals. English-dominant market. Amsterdam & Eindhoven tech hubs.</p>
+    </div>
+    <div class="visa-card">
+      <span class="visa-flag">🇵🇹</span>
+      <h4>Portugal</h4>
+      <div class="visa-type">Tech Visa / D3</div>
+      <p>Affordable. Growing startup scene. Remote-friendly. Lower cost of entry.</p>
+    </div>
+    <div class="visa-card">
+      <span class="visa-flag">🇮🇪</span>
+      <h4>Ireland</h4>
+      <div class="visa-type">Critical Skills Permit</div>
+      <p>English-speaking. EU tech hub — Google, Meta, LinkedIn all based here.</p>
+    </div>
+    <div class="visa-card">
+      <span class="visa-flag">🇸🇪</span>
+      <h4>Sweden</h4>
+      <div class="visa-type">Employer Work Permit</div>
+      <p>High salaries. Strong work-life balance. English widely spoken in tech.</p>
+    </div>
+    <div class="visa-card">
+      <span class="visa-flag">🇪🇸</span>
+      <h4>Spain</h4>
+      <div class="visa-type">Digital Nomad Visa</div>
+      <p>New digital nomad visa pathway. Growing remote-work ecosystem. Affordable cities.</p>
+    </div>
+  </div>
+  <div class="visa-tip">
+    <strong>💡 Best first step:</strong> Germany's Job Seeker Visa requires no prior job offer — you arrive for 6 months to interview in-country. With ₦7M budget, Germany + Portugal are the most accessible entry points. Ireland and Netherlands have the highest demand for beginner-to-mid tech profiles with real project work.
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section reveal" id="contact">
+  <div class="contact-panel">
+    <div class="eyebrow" style="justify-content:center;">Contact</div>
+    <h2>Let's Work Together</h2>
+    <p>Open to full-time roles, contracts, and graduate tech positions across Europe. Sponsorship welcome.</p>
+    <div class="contact-links">
+      <a class="clink" href="mailto:labi@freedomglobalmedia.com">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Email Me
+      </a>
+      <a class="clink" href="https://linkedin.com/in/labi-ayodele" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="clink" href="https://github.com/ayodeleolamide1" target="_blank" rel="noopener">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a class="clink" href="Labi_Ayodele_International_CV.docx" download>
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download CV
+      </a>
+    </div>
+    <div style="margin-bottom:.6rem;font-size:.8rem;color:var(--slate);">Your unique portfolio link — share with employers:</div>
+    <div class="profile-url-box" id="profile-url" onclick="copyUrl()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      labi.dev
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="copy-tooltip" id="copy-tip">Copied!</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 Olamide Tosin Ayodele · Freedom Global Media · <a href="https://labi.dev">labi.dev</a></span>
+  <span>Lagos, Nigeria → Europe · Open to sponsorship · <a href="https://github.com/ayodeleolamide1" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/labi-ayodele" target="_blank" rel="noopener">LinkedIn</a></span>
+</footer>
+
+<script>
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('scroll-bar').style.width = pct + '%';
+});
+
+/* ── NAV TOGGLE ── */
+document.getElementById('nav-toggle').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+document.querySelectorAll('.mob-link').forEach(l => {
+  l.addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+});
+
+/* ── LANGUAGE TICKER ── */
+(function() {
+  const inner = document.getElementById('lang-inner');
+  const spans = inner.querySelectorAll('span');
+  let idx = 0;
+  setInterval(() => {
+    idx = (idx + 1) % (spans.length - 1);
+    inner.style.transform = `translateY(-${idx * 1.2}em)`;
+  }, 1200);
+})();
+
+/* ── HERO PARTICLE CANVAS ── */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let nodes = [], W, H, animId;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); init(); });
+
+  function init() {
+    nodes = [];
+    const n = Math.min(60, Math.floor(W * H / 14000));
+    for (let i = 0; i < n; i++) {
+      nodes.push({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.5 + 0.5
+      });
+    }
+  }
+  init();
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,102,255,0.6)';
+      ctx.fill();
+    });
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 110) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(0,102,255,${(1 - d / 110) * 0.25})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+    animId = requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── REVEAL ON SCROLL ── */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // animate stat counters
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        if (target === 0) { el.textContent = '0'; return; }
+        const step = Math.max(1, Math.floor(target / 30));
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current;
+          if (current >= target) clearInterval(timer);
+        }, 40);
+      });
+      // animate skill bars
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+/* ── SKILLS TABS ── */
+document.querySelectorAll('.stab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById('panel-' + tab.dataset.panel);
+    panel.classList.add('active');
+    // trigger bar animations for newly visible panel
+    panel.querySelectorAll('.skill-bar-fill').forEach(bar => {
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 50);
+    });
+  });
+});
+
+/* ── PROJECT FILTER ── */
+document.querySelectorAll('.filt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+/* ── COPY PROFILE URL ── */
+function copyUrl() {
+  navigator.clipboard.writeText('https://labi.dev').then(() => {
+    const tip = document.getElementById('copy-tip');
+    tip.classList.add('show');
+    setTimeout(() => tip.classList.remove('show'), 1800);
+  });
+}
+
+/* ── SKILL BARS for initially active panel ── */
+document.querySelectorAll('#panel-dev .skill-bar-fill').forEach(bar => {
+  setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 800);
+});
+</script>
+</body>
+</html>
